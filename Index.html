@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的香港交通網站</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        .box { border: 1px solid #ddd; padding: 15px; border-radius: 8px; max-width: 400px; }
+        input { padding: 8px; width: 200px; }
+        button { padding: 8px 15px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; }
+        .result { margin-top: 20px; font-weight: bold; color: #2c3e50; }
+    </style>
+</head>
+<body>
+
+    <h2>🚌 香港巴士路線查詢 (模擬版)</h2>
+    <div class="box">
+        <p>請輸入路線編號 (例如: 1A 或 962X):</p>
+        <input type="text" id="routeInput" placeholder="輸入路線...">
+        <button onclick="searchRoute()">查詢收費</button>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        // 這是「模擬」的數據庫，之後我們會教你如何接通政府真正的數據
+        const mockData = {
+            "1A": { "origin": "中秀茂坪", "dest": "尖沙咀碼頭", "fare": "$7.9" },
+            "962X": { "origin": "屯門(龍門居)", "dest": "銅鑼灣(摩頓台)", "fare": "$21.0" },
+            "B1": { "origin": "天慈", "dest": "落馬洲站", "fare": "$13.2" }
+        };
+
+        function searchRoute() {
+            const route = document.getElementById('routeInput').value.toUpperCase();
+            const resultDiv = document.getElementById('result');
+
+            if (mockData[route]) {
+                const info = mockData[route];
+                resultDiv.innerHTML = `
+                    路线: ${route} <br>
+                    起點: ${info.origin} <br>
+                    終點: ${info.dest} <br>
+                    全費: <span style="color:red">${info.fare}</span>
+                `;
+            } else {
+                resultDiv.innerHTML = "❌ 找不到這條路線，試試輸入 1A 或 962X";
+            }
+        }
+    </script>
+</body>
+</html>
